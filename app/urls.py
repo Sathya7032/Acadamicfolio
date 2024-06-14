@@ -41,5 +41,6 @@ urlpatterns = [
     
     path('search/', search_blog, name='search_model'),
     path('search_code/',search_code, name='search_model'),
-    path('api/shorts/', ShortListCreateView.as_view(), name='shorts-list-create'),
+    path('shorts/', ShortListCreateView.as_view(), name='shorts-list-create'),
+    path('latest-update/', get_latest_update, name='latest-update'),
 ]

@@ -158,3 +158,7 @@ class Short(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Latest_update(models.Model):
+    update = models.CharField(max_length=20000)
+    date = models.DateTimeField(auto_now=True)

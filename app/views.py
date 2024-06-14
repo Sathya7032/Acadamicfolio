@@ -26,6 +26,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_GET
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
@@ -336,27 +337,51 @@ class BlogsDetailView(generics.RetrieveUpdateDestroyAPIView):
      
 
 
-@api_view(['POST'])
-def create_contact(request):
-    serializer = ContactSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
 def search_blog(request):
     query = request.GET.get('query', '')
     results = Blogs.objects.filter(title__icontains=query)
-    data = [{'title': result.title, 'content': result.content, 'id':result.id, 'views':result.views,'date':result.date,'user':result.user} for result in results]
+    
+    # Serialize the blog data
+    data = []
+    for result in results:
+        blog_data = {
+            'title': result.title,
+            'content': result.content,
+            'id': result.id,
+            'views': result.views,
+            'date': result.date,
+            # Serialize user as a dictionary
+            'user': {
+                'id': result.user.id,
+                'username': result.user.username,
+                'email': result.user.email,  # Include any other user fields you need
+            }
+        }
+        data.append(blog_data)
+    
     return JsonResponse(data, safe=False)
 
 def search_code(request):
     query = request.GET.get('query', '')
     results = CodeSnippet.objects.filter(title__icontains=query)
-    data = [{'title': result.title, 'content': result.content, 'id':result.id, 'code':result.code} for result in results]
+    
+    # Serialize the code snippet data
+    data = []
+    for result in results:
+        snippet_data = {
+            'title': result.title,
+            'content': result.content,
+            'code_id': result.code_id,
+            'code': result.code,
+            # Assuming there's an 'author' field which is a foreign key to the User model
+            'user': {
+                'id': result.user.id,
+                'username': result.user.username,
+                'email': result.user.email,  # Include other necessary fields
+            } if hasattr(result, 'user') and result.user else None
+        }
+        data.append(snippet_data)
+    
     return JsonResponse(data, safe=False)
 
 
@@ -387,7 +412,7 @@ def contact_handler(request):
 
             # Send email to user
             subject = 'THANK YOU FOR CONTACTING ME'
-            html_content = render_to_string('contact_email.html', {'name': serializer.data["name"]})
+            html_content = render_to_string('contact_html.html', {'name': serializer.data["name"]})
             text_content = strip_tags(html_content)  # Strip the html tag
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [serializer.data["email"]]
@@ -408,3 +433,22 @@ def contact_handler(request):
 class ShortListCreateView(generics.ListCreateAPIView):
     queryset = Short.objects.all().order_by('-created_at')  
     serializer_class = ShortSerializer
+    
+@require_GET  # Ensures the view only responds to GET requests
+def get_latest_update(request):
+    # Fetch the latest update by ordering by date and taking the first result
+    latest_update = Latest_update.objects.order_by('-date').first()
+    
+    if latest_update:
+        # Serialize the latest update to JSON
+        data = {
+            'update': latest_update.update,
+            'date': latest_update.date,
+        }
+    else:
+        # If there are no updates, return a message
+        data = {
+            'error': 'No updates found',
+        }
+    
+    return JsonResponse(data)

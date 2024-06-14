@@ -243,7 +243,6 @@ LOGIN_REDIRECT_URL = "/"
 
 
 
-
 customColorPalette = [
         {
             'color': 'hsl(4, 90%, 58%)',
