@@ -28,11 +28,9 @@ SECRET_KEY = 'django-insecure-betov3+aey1)zo=hno2i-g*p%1ju^%$!h!bk!do&w@jj_6wpn+
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
+    
     'www.acadamicfolio.online',
-    'www.acadamicfolio.info',
-    'acadamicfolio.info',
+    
 ]
 
 
@@ -90,10 +88,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://www.acadamicfolio.info",
 ]
-
-CORS_ALLOW_ALL_ORIGINS = True  # Only for debugging, not for production
-
-CORS_ALLOW_CREDENTIALS = True 
 
 
 
