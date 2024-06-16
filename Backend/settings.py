@@ -73,6 +73,11 @@ CORS_ORIGIN_WHITELIST = (
   "https://www.acadamicfolio.info",
 )
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://www.acadamicfolio.info",
+]
+
 AUTH_USER_MODEL = 'app.User'
 
 REST_FRAMEWORK = {
