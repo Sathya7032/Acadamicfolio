@@ -27,7 +27,12 @@ SECRET_KEY = 'django-insecure-betov3+aey1)zo=hno2i-g*p%1ju^%$!h!bk!do&w@jj_6wpn+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["www.acadamicfolio.online"]
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'www.acadamicfolio.info',
+    'acadamicfolio.info',
+]
 
 
 # Application definition
@@ -87,7 +92,7 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_ALL_ORIGINS = True  # Only for debugging, not for production
 
-
+CORS_ALLOW_CREDENTIALS = True 
 
 
 
