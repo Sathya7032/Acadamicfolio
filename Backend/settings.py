@@ -228,6 +228,12 @@ SIMPLE_JWT = {
 
 SITE_ID = 1
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://www.acadamicfolio.info",
+]
+
+
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
