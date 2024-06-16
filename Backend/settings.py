@@ -56,27 +56,50 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Should be here
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # Add the allauth middleware
     'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'Backend.urls'
 
-CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = (
-  "https://www.acadamicfolio.info",
-)
+# settings.py
 
+# CORS Configuration
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://www.acadamicfolio.info",
 ]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
+
+CORS_REPLACE_HTTPS_REFERER = True  # For debugging purposes
+
 
 AUTH_USER_MODEL = 'app.User'
 
@@ -226,10 +249,6 @@ SIMPLE_JWT = {
 
 SITE_ID = 1
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "https://www.acadamicfolio.info",
-]
 
 
 
@@ -240,15 +259,7 @@ AUTHENTICATION_BACKENDS = [
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'APP': {
-            'client_id': '',
-            'secret': '',
-            'key': ''
-        }
-    }
-}
+
 
 SOCIALACCOUNT_ADAPTER = 'app.adapters.MySocialAccountAdapter'
 
