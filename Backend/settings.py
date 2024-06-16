@@ -68,13 +68,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Backend.urls'
 
-CORS_ORIGIN_ALLOW_ALL = True
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "https://www.acadamicfolio.info",
-]
-
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+  "https://www.acadamicfolio.info",
+)
 
 AUTH_USER_MODEL = 'app.User'
 
