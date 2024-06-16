@@ -67,6 +67,16 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Backend.urls'
 
+
+AUTH_USER_MODEL = 'app.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+
 # settings.py
 
 # CORS Configuration
@@ -101,13 +111,6 @@ CORS_ALLOW_HEADERS = [
 CORS_REPLACE_HTTPS_REFERER = True  # For debugging purposes
 
 
-AUTH_USER_MODEL = 'app.User'
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
 
 
 
@@ -214,7 +217,7 @@ EMAIL_HOST_PASSWORD = 'itwqptuovqcqxubu'
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=50),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=50),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': True,
