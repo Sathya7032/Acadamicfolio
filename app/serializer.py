@@ -145,3 +145,31 @@ class ShortSerializer(serializers.ModelSerializer):
     class Meta:
         model = Short
         fields = '__all__'
+        
+        
+class LanguageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LanguageMcq
+        fields = '__all__'
+
+class TopicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TopicMcq
+        fields = '__all__'
+
+class OptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Option
+        fields = '__all__'
+
+class QuestionSerializer(serializers.ModelSerializer):
+    options = OptionSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Question
+        fields = '__all__'
+
+class ResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Result
+        fields = '__all__'

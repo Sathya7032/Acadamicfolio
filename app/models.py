@@ -17,9 +17,9 @@ class User(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    full_name = models.CharField(max_length=1000)
-    bio = models.CharField(max_length=10000)
-    role = models.CharField(max_length=1000)
+    full_name = models.CharField(max_length=200)
+    bio = models.CharField(max_length=200)
+    role = models.CharField(max_length=200)
     gitlink = models.URLField()
     image = models.ImageField(upload_to="profile_pictures", default="default.jpg")
 
@@ -47,7 +47,7 @@ class Todo(models.Model):
  
 class Blogs(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=1000,unique=True)
+    title = models.CharField(max_length=200,unique=True)
     content = CKEditor5Field('Text', config_name='extends')
     date = models.DateTimeField(auto_now_add=True)
     views = models.PositiveIntegerField(default=0)
@@ -70,7 +70,7 @@ class Comment(models.Model):
 
 
 class TutorialName(models.Model):
-    tutorialName = models.CharField(max_length=1000)
+    tutorialName = models.CharField(max_length=200)
     tutorialContent = models.TextField()
     tutorialImage = models.ImageField(upload_to='Tutorials')
     def __str__(self):
@@ -80,7 +80,7 @@ class TutorialPost(models.Model):
     post_id = models.AutoField(primary_key=True)
     post_title = models.CharField(max_length=100)
     post_content = CKEditor5Field('Text', config_name='extends')
-    post_file = models.CharField(max_length=1000)
+    post_file = models.CharField(max_length=200)
     tutorialName = models.ForeignKey(TutorialName, on_delete=models.CASCADE)   
     post_video = models.URLField()
     user = models.ForeignKey(User,on_delete=models.CASCADE,default=1)
@@ -99,7 +99,7 @@ class Comment_tutorials(models.Model):
 
 
 class Meme(models.Model):
-    description = models.CharField(max_length=1100)
+    description = models.CharField(max_length=200)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     images = models.FileField(upload_to='memes', default=1)
@@ -150,7 +150,7 @@ class Problem_solve(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE) 
     
 class Short(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=200)
     video_url = models.URLField()
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -160,5 +160,43 @@ class Short(models.Model):
         return self.title
     
 class Latest_update(models.Model):
-    update = models.CharField(max_length=20000)
+    update = models.CharField(max_length=100)
     date = models.DateTimeField(auto_now=True)
+    
+    
+class LanguageMcq(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class TopicMcq(models.Model):
+    name = models.CharField(max_length=100)
+    language = models.ForeignKey(LanguageMcq, on_delete=models.CASCADE, related_name='topics')
+
+    def __str__(self):
+        return self.name
+
+class Question(models.Model):
+    text = models.TextField()
+    topic = models.ForeignKey(TopicMcq, on_delete=models.CASCADE, related_name='questions')
+
+    def __str__(self):
+        return self.text
+
+class Option(models.Model):
+    text = models.CharField(max_length=200)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='options')
+    is_correct = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.text
+
+class Result(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='results')
+    selected_option = models.ForeignKey(Option, on_delete=models.CASCADE)
+    correct = models.BooleanField()
+
+    def __str__(self):
+        return f"User: {self.user}, Question: {self.question}, Correct: {self.correct}"

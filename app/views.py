@@ -27,6 +27,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_GET
+from rest_framework import viewsets
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
@@ -452,3 +453,49 @@ def get_latest_update(request):
         }
     
     return JsonResponse(data)
+
+
+# Language Views
+class LanguageList(generics.ListCreateAPIView):
+    queryset = LanguageMcq.objects.all()
+    serializer_class = LanguageSerializer
+
+class LanguageDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = LanguageMcq.objects.all()
+    serializer_class = LanguageSerializer
+
+# Topic Views
+class TopicList(generics.ListCreateAPIView):
+    queryset = TopicMcq.objects.all()
+    serializer_class = TopicSerializer
+
+class TopicDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TopicMcq.objects.all()
+    serializer_class = TopicSerializer
+
+# Question Views
+class QuestionList(generics.ListCreateAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+# Option Views
+class OptionList(generics.ListCreateAPIView):
+    queryset = Option.objects.all()
+    serializer_class = OptionSerializer
+
+class OptionDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Option.objects.all()
+    serializer_class = OptionSerializer
+
+# Result Views
+class ResultList(generics.ListCreateAPIView):
+    queryset = Result.objects.all()
+    serializer_class = ResultSerializer
+
+class ResultDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Result.objects.all()
+    serializer_class = ResultSerializer

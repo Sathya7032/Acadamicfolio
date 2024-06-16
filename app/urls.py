@@ -1,5 +1,6 @@
-from django.urls import path
+from django.urls import path, include
 from .views import *
+
 
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
@@ -43,4 +44,24 @@ urlpatterns = [
     path('search_code/',search_code, name='search_model'),
     path('shorts/', ShortListCreateView.as_view(), name='shorts-list-create'),
     path('latest-update/', get_latest_update, name='latest-update'),
+    
+     # Language URLs
+    path('languageMcq/', LanguageList.as_view(), name='language-list'),
+    path('languagesMcq/<int:pk>/', LanguageDetail.as_view(), name='language-detail'),
+    
+    # Topic URLs
+    path('topicsMcq/', TopicList.as_view(), name='topic-list'),
+    path('topicsMcq/<int:pk>/', TopicDetail.as_view(), name='topic-detail'),
+    
+    # Question URLs
+    path('questions/', QuestionList.as_view(), name='question-list'),
+    path('questions/<int:pk>/', QuestionDetail.as_view(), name='question-detail'),
+    
+    # Option URLs
+    path('options/', OptionList.as_view(), name='option-list'),
+    path('options/<int:pk>/', OptionDetail.as_view(), name='option-detail'),
+    
+    # Result URLs
+    path('results/', ResultList.as_view(), name='result-list'),
+    path('results/<int:pk>/', ResultDetail.as_view(), name='result-detail'),
 ]
