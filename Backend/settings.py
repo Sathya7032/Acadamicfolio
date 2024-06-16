@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-betov3+aey1)zo=hno2i-g*p%1ju^%$!h!bk!do&w@jj_6wpn+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app", ".now.sh"]
 
 
 # Application definition
@@ -123,12 +123,12 @@ WSGI_APPLICATION = 'Backend.wsgi.application'
 
 DATABASES = {
 	'default': {
-		'ENGINE': 'django.db.backends.mysql',
-		'NAME': 'acadamicfolio',
-		'USER': 'root',
-		'PASSWORD': 'Sathi7661$',
-		'HOST':'localhost',
-		'PORT':'3306',
+		'ENGINE': 'django.db.backends.postgresql_psycopg2',
+		'NAME': 'postgres',
+		'USER': 'postgres.ttsfvzorpqzuvgqrchad',
+		'PASSWORD': 'Sathi766187$',
+		'HOST':'aws-0-ap-southeast-1.pooler.supabase.com',
+		'PORT':'5432',
 	}
 }
 
