@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'django.contrib.sites',  
@@ -53,6 +52,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'rest_framework.authtoken',
+    'corsheaders',
     'django_ckeditor_5',
     'admin_user',
 ]
@@ -231,8 +231,6 @@ SIMPLE_JWT = {
 #google authentication start
 
 SITE_ID = 1
-
-
 
 
 AUTHENTICATION_BACKENDS = [
