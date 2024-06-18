@@ -82,12 +82,8 @@ REST_FRAMEWORK = {
 
 
 # settings.py
+CORS_ORIGIN_ALLOW_ALL = True
 
-# CORS Configuration
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "https://www.acadamicfolio.info",
-]
 
 
 
